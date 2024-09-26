@@ -7,6 +7,7 @@ from .views import TournamentBracketView, TournamentProgressView
 
 
 urlpatterns = [
+     path('', views.chess_home, name='chess_home'),
     path('player/<str:chess_com_username>/', views.PlayerDetailView.as_view(), name='player_profile'),
     path('player/<str:username>/archives/', views.player_game_archives, name='player_game_archives'),
     path('player/<str:chess_com_username>/campus/', views.PlayerCampusView.as_view(), name='player_campus'),

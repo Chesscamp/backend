@@ -21,11 +21,27 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from chess import views
+from django.views.generic import RedirectView
+from django.urls import get_resolver
+from django.http import HttpResponse
+
+def list_urls(request):
+    url_list = []
+    resolver = get_resolver()
+    for url_pattern in resolver.url_patterns:
+        if hasattr(url_pattern, 'url_patterns'):
+            for sub_pattern in url_pattern.url_patterns:
+                url_list.append(str(sub_pattern.pattern))
+        else:
+            url_list.append(str(url_pattern.pattern))
+    
+    return HttpResponse('<br>'.join(url_list))
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('chess.urls')),
-    path('api/', include('forum.urls')),
-    path('api/', include('notifications.urls')),
+    path('chess/', include('chess.urls')),
+    path('forum/', include('forum.urls')),
+    path('notifications/', include('notifications.urls')),
+    path('', RedirectView.as_view(url='/chess/', permanent=False)),
 ]
 

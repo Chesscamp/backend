@@ -255,3 +255,5 @@ def respond_to_invitation(request, invitation_id):
     else:
         return Response({'error': 'Invalid response.'}, status=status.HTTP_400_BAD_REQUEST)
 
+def chess_home(request):
+    return render(request, 'chess/home.html')

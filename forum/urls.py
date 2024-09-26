@@ -1,4 +1,4 @@
-# community/urls.py
+# forum/urls.py
 
 from django.urls import path
 from . import views
